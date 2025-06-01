@@ -2,128 +2,178 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  <title>CeLOE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CeLOE</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
-    * { box-sizing: border-box; margin:0; padding:0; scroll-behavior:smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
     body {
-      font-family: 'Poppins',sans-serif;
-      background:#f9f9f9; color:#333;
-      overflow-x:hidden;
-    }    header {
-      background:linear-gradient(to right,#d32f2f,#f44336);
-      padding:2rem 0; text-align:center;
-      box-shadow:0 6px 10px rgba(0,0,0,0.15);
-      border-bottom:4px solid #b71c1c;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background: linear-gradient(to right, #d32f2f, #f44336);
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      border-bottom: 4px solid #b71c1c;
     }
     header h1 {
-      color:#fff; font-size:3rem;
-      text-shadow:2px 2px 4px rgba(0,0,0,0.3);
-    }    nav {
-      display:flex; justify-content:center;
-      background:#ffebee; padding:.75rem 0;
-      border-bottom:2px solid #e53935;
+      color: #fff;
+      font-size: 3rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #ffebee;
+      padding: .75rem 0;
+      border-bottom: 2px solid #e53935;
     }
     nav a {
-      position:relative; margin:0 1.5rem;
-      color:#333; font-weight:600; text-decoration:none;
+      position: relative;
+      margin: 0 1.5rem;
+      color: #333;
+      font-weight: 600;
+      text-decoration: none;
     }
     nav a::after {
-      content:''; position:absolute;
-      bottom:-4px; left:0; width:0; height:2px;
-      background:#d32f2f; transition:width .3s;
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #d32f2f;
+      transition: width .3s;
     }
-    nav a:hover::after { width:100% }
+    nav a:hover::after {
+      width: 100%;
+    }
 
     .content {
-      max-width:1200px; margin:2rem auto; padding:0 1rem;
-      text-align:center;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      text-align: center;
     }
-    .content h3 { color:#d32f2f; font-size:1.8rem; margin-bottom:.75rem }
-    .content p { color:#555; line-height:1.6 }
+    .content h3 {
+      color: #d32f2f;
+      font-size: 1.8rem;
+      margin-bottom: .75rem;
+    }
+    .content p {
+      color: #555;
+      line-height: 1.6;
+    }
 
     .button {
-      display:inline-block; padding:.75rem 1.5rem;
-      background:#d32f2f; color:#fff; font-weight:600;
-      border:none; border-radius:8px; cursor:pointer;
-      transition:background .3s,transform .2s;
+      display: inline-block;
+      padding: .75rem 1.5rem;
+      background: #d32f2f;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
     }
-    .button:hover { background:#b71c1c; transform:scale(1.05) }
+    .button:hover {
+      background: #b71c1c;
+      transform: scale(1.05);
+    }
 
-    /* embed normal */
-    .iframe-container { width:100%; margin:2rem 0 }
+    /* Lebar diperlebar lagi: 98% (sisakan margin 1% di kiri dan kanan) */
+    .iframe-container {
+      width: 100%;
+      margin: 2rem 0;
+      display: flex;
+      justify-content: center;
+    }
     .black-box {
-      position:relative; width:100%; height:100vh;
-      background:#fff; overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      width: 98%;        /* Diubah menjadi 98% */
+      max-width: 2000px;  /* Batas maksimum agar tidak terlalu melebar di layar besar */
+      height: 70vh;       /* 70% tinggi viewport */
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     .black-box .logo {
-      position:absolute; max-width:200px; z-index:2;
-      opacity:1;
-      /* transisi default—akan digunakan JS */
+      position: absolute;
+      max-width: 200px;
+      z-index: 2;
+      opacity: 1;
       transition: opacity 2s ease;
-      pointer-events:none;
+      pointer-events: none;
     }
     .black-box iframe {
-      position:absolute; top:0; left:0;
-      width:100%; height:100%; border:none;
-      z-index:1; display:none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 1;
+      display: none;
     }
 
-    /* fullscreen */
-    body.fullscreen-mode {
-      overflow:hidden !important; background:#000 !important;
+    footer {
+      background: #ffcdd2;
+      color: #333;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 3rem;
+      font-size: .95rem;
     }
-    .fullscreen-container {
-      position:fixed !important;
-      top:0 !important; left:0 !important;
-      width:100vw !important; height:100vh !important;
-      margin:0 !important; padding:0 !important;
-      z-index:9999 !important; background:#000 !important;
-    }
-    .fullscreen-container iframe {
-      display:block !important;
-    }
-    .exit-fullscreen-btn {
-      position:fixed; top:20px; right:30px; z-index:10000;
-      padding:10px 18px; font-size:1rem; font-weight:bold;
-      background:#fff; color:#222; border:none; border-radius:6px;
-      cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.2);
-      transition:background .2s;
-    }
-    .exit-fullscreen-btn:hover { background:#d32f2f; color:#fff }    footer {
-      background:#ffcdd2; color:#333;
-      text-align:center; padding:1rem 0; margin-top:3rem;
-      font-size:.95rem;
-    }
-    @media(max-width:768px){
-      header h1{font-size:2rem}
-      .content{margin:1rem auto;padding:0 .5rem}
-      .black-box{height:50vh}
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .content {
+        margin: 1rem auto;
+        padding: 0 .5rem;
+      }
+      .black-box {
+        width: 99%;    /* Di mobile: sisakan margin 0.5% di kiri dan kanan */
+        height: 50vh;  /* 50% tinggi viewport */
+      }
     }
   </style>
 </head>
 <body>
-  <header><h1>Welcome to Virtual Tour CeLOE</h1></header>
+  <header>
+    <h1>Welcome to Virtual Tour CeLOE</h1>
+  </header>
   <nav>
     <a href="#about">About</a>
     <a href="#virtual">Virtual</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <div class="content" id="about">    <h3>About CeLOE</h3>
+  <div class="content" id="about">
+    <h3>About CeLOE</h3>
     <p>CeLOE menyediakan virtual tour 360° untuk mengeksplorasi berbagai lokasi.</p>
   </div>
 
   <div class="content" id="virtual">
     <h3>Virtual Tour</h3>
-    <button class="button" onclick="startVirtualTour()">Start Virtual Tour (Fullscreen)</button>
+    <button class="button" onclick="startVirtualTour()">Start Virtual Tour</button>
   </div>
 
   <div class="iframe-container" id="virtualTourContainer">
     <div class="black-box">
-      <img src="assets/logoceloe.png" alt="Logo CeLOE" class="logo"/>
+      <img src="assets/logoceloe.png" alt="Logo CeLOE" class="logo" />
       <iframe id="virtualTourIframe" title="Virtual Tour"></iframe>
     </div>
   </div>
@@ -138,64 +188,29 @@
   </footer>
 
   <script>
-    // smooth scroll
-    document.querySelectorAll('nav a').forEach(a=>{
-      a.onclick=e=>{
+    // Smooth scroll untuk menu navigasi
+    document.querySelectorAll('nav a').forEach(a => {
+      a.onclick = e => {
         e.preventDefault();
-        const sec=document.getElementById(a.getAttribute('href').slice(1));
-        if(sec) window.scrollTo({top:sec.offsetTop-60,behavior:'smooth'});
-      }
+        const target = document.getElementById(a.getAttribute('href').slice(1));
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' });
+        }
+      };
     });
 
-    function startVirtualTour(){
-      const body=document.body;
-      const container=document.getElementById('virtualTourContainer');
-      const blackBox=container.querySelector('.black-box');
-      const iframe=document.getElementById('virtualTourIframe');
-      const logo=blackBox.querySelector('.logo');
+    function startVirtualTour() {
+      const iframe = document.getElementById('virtualTourIframe');
+      const logo = document.querySelector('.black-box .logo');
 
-      // masuk fullscreen
-      body.classList.add('fullscreen-mode');
-      container.classList.add('fullscreen-container');
-      blackBox.classList.add('fullscreen-container');
-
-      // muat iframe & langsung hilangkan logo
-      if(!iframe.src){
-        iframe.src='virtual.html#virtual360';
+      // Jika iframe belum pernah dimuat, atur src
+      if (!iframe.src) {
+        iframe.src = 'virtual.html#virtual360';
       }
-      iframe.style.display='block';
-      logo.style.display='none';
-      logo.style.opacity='0';
-
-      // tombol exit
-      if(!document.getElementById('exitFullscreenBtn')){
-        const btn=document.createElement('button');
-        btn.id='exitFullscreenBtn';
-        btn.className='exit-fullscreen-btn';
-        btn.innerText='Exit Fullscreen';
-        btn.onclick=exitFullscreenVirtualTour;
-        document.body.appendChild(btn);
-      }
-    }
-
-    function exitFullscreenVirtualTour(){
-      const body=document.body;
-      const container=document.getElementById('virtualTourContainer');
-      const blackBox=container.querySelector('.black-box');
-      const logo=blackBox.querySelector('.logo');
-
-      // keluar fullscreen
-      body.classList.remove('fullscreen-mode');
-      container.classList.remove('fullscreen-container');
-      blackBox.classList.remove('fullscreen-container');
-
-      // sembunyikan logo langsung
-      logo.style.opacity='0';
-      logo.style.display='none';
-
-      // hapus tombol
-      const btn=document.getElementById('exitFullscreenBtn');
-      if(btn) btn.remove();
+      // Tampilkan iframe, sembunyikan logo
+      iframe.style.display = 'block';
+      logo.style.display = 'none';
+      logo.style.opacity = '0';
     }
   </script>
 </body>
