@@ -209,8 +209,10 @@
       }
       // Tampilkan iframe, sembunyikan logo
       iframe.style.display = 'block';
-      logo.style.display = 'none';
       logo.style.opacity = '0';
+      logo.addEventListener('transitionend', () => {
+        logo.style.display = 'none';
+      }, { once: true });
     }
   </script>
 </body>
